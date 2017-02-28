@@ -1,0 +1,7 @@
+<?php 
+$id=mysql_connect("172.16.1.61","admin","admin")or dir('连接服务器失败:'. mysql_error());
+if(mysql_select_db("phpcms"{
+echo "";
+}else{echo ('连接数据库失败:'. mysql_error());}
+mysql_query("set names gbk");
+?>

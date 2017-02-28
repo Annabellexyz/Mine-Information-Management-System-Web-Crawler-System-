@@ -1,0 +1,57 @@
+#divDialog {
+	BORDER-RIGHT: #cccccc 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #cccccc 1px solid; PADDING-LEFT: 2px; Z-INDEX: 9999; BACKGROUND: #eee; FLOAT: left; PADDING-BOTTOM: 2px; BORDER-LEFT: #cccccc 1px solid; WIDTH: 420px; PADDING-TOP: 2px; BORDER-BOTTOM: #cccccc 1px solid
+}
+.qla0 {
+	Z-INDEX: 9999; WIDTH: 0px; POSITION: relative; HEIGHT: 0px
+}
+.qla0  {
+	FONT-SIZE: 12px
+}
+.qlr1 {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 10px; FONT-SIZE: 11px; COLOR: #999; FONT-FAMILY: Tahoma
+}
+.qlr2 {
+	FONT-WEIGHT: bold
+}
+.qlt1 {
+	WIDTH: 100%; LINE-HEIGHT: 31px; HEIGHT: 31px; TEXT-ALIGN: left
+}
+.qlt2 {
+	WIDTH: 100%; TEXT-ALIGN: left
+}
+.qld1 {
+	BORDER-TOP: #ddd 1px solid; FONT-SIZE: 1px; MARGIN: auto; WIDTH: 98%; HEIGHT: 0px
+}
+.qlul1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 10px 0px; LINE-HEIGHT: 150%; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+.qlul1 LI {
+	MARGIN-LEFT: 10px
+}
+.qlult1 {
+	FONT-WEIGHT: bold; PADDING-BOTTOM: 5px; COLOR: #000
+}
+.qlul1 A {
+	COLOR: #003399
+}
+.qlul1 A:link {
+	TEXT-DECORATION: none
+}
+.qlul1 A:visited {
+	TEXT-DECORATION: none
+}
+.qlul1 A:hover {
+	COLOR: #cc0000; TEXT-DECORATION: underline
+}
+.qltb1 {
+	WIDTH: 100%
+}
+.qltb1 TD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+.qla1 {
+	BACKGROUND: #fff; FLOAT: left; WIDTH: 420px; HEIGHT: 280px; TEXT-ALIGN: center
+}
+.qll1 {
+	COLOR: #ff2000
+}

@@ -1,0 +1,90 @@
+#print {
+	DISPLAY: block; FONT-SIZE: 12px; Z-INDEX: 999; POSITION: relative
+}
+#ns_pt1 {
+	DISPLAY: none
+}
+.ns_tb1 {
+	DISPLAY: none
+}
+.ns_tb2 {
+	DISPLAY: none
+}
+.ns_np1 {
+	DISPLAY: none
+}
+TABLE {
+	FONT-SIZE: 12px; BORDER-COLLAPSE: collapse
+}
+.l1 {
+	TEXT-ALIGN: center
+}
+.l1 INPUT {
+	DISPLAY: none
+}
+.l2 {
+	COLOR: #000000; PADDING-TOP: 4px; TEXT-ALIGN: center
+}
+.l3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: Tahoma; TEXT-ALIGN: center
+}
+.l4 {
+	PADDING-TOP: 4px; TEXT-ALIGN: center
+}
+.l5 {
+	PADDING-TOP: 5px; TEXT-ALIGN: right
+}
+.l5_goal {
+	FONT-WEIGHT: bold; COLOR: #000000; PADDING-TOP: 5px; TEXT-ALIGN: right
+}
+.l5 A {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.l5_goal A {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.l7 A {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.l7_goal A {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.l7 {
+	PADDING-TOP: 5px; TEXT-ALIGN: left
+}
+.l7_goal {
+	FONT-WEIGHT: bold; COLOR: #000000; PADDING-TOP: 5px; TEXT-ALIGN: left
+}
+.l6 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; FONT-FAMILY: Tahoma; TEXT-ALIGN: center
+}
+.l6 A:link {
+	FONT-WEIGHT: bold; COLOR: #000000; TEXT-DECORATION: none
+}
+.l6 A:visited {
+	FONT-WEIGHT: bold; COLOR: #000000; TEXT-DECORATION: none
+}
+.l6 A:active {
+	FONT-WEIGHT: bold; COLOR: #000000; TEXT-DECORATION: none
+}
+.l6 A:hover {
+	FONT-WEIGHT: bold; COLOR: #ff0000; TEXT-DECORATION: underline
+}
+.l8 {
+	FONT-SIZE: 11px; COLOR: #ff0000; FONT-FAMILY: Tahoma; TEXT-ALIGN: center
+}
+.l8 A {
+	DISPLAY: none
+}
+.l9 {
+	LEFT: -30px; PADDING-TOP: 4px; POSITION: absolute; TEXT-ALIGN: center
+}
+.l9 IMG {
+	DISPLAY: none
+}
+.ns_xq1 {
+	FONT-WEIGHT: bold; COLOR: #000000; PADDING-TOP: 4px; HEIGHT: 22px; TEXT-ALIGN: center
+}
+.noprint {
+	DISPLAY: none
+}

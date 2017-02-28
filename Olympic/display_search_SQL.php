@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>160 2008奥运搜索输出数据</title>
+</head>
+<body>
+
+<?
+	//连接数据库
+	$host='localhost';
+	$username='admin';
+	$password='xxzx160168';
+	$db_name='phpcms';
+	$tb_name='olympic_match_detail';
+		
+	$link=@mysql_connect($host,$username,$password);
+	mysql_query('set names gbk');
+	mysql_select_db($db_name, $link);
+	
+	$ConditionsNumber=6; //共有6个条件。
+	$condition1 = isset($_POST['condition1']) ? trim($_POST['condition1']) : '';
+	$condition2 = isset($_POST['condition2']) ? trim($_POST['condition2']) : '';
+	$condition3 = isset($_POST['condition3']) ? trim($_POST['condition3']) : '';
+	$condition4 = isset($_POST['condition4']) ? trim($_POST['condition4']) : '';
+	$condition5 = isset($_POST['condition5']) ? trim($_POST['condition5']) : '';
+	$condition6 = isset($_POST['condition6']) ? trim($_POST['condition6']) : '';
+	$ConditionsArray=array("$condition1","$condition2","$condition3","$condition4","$condition5","$condition6");
+	//把各个条件排入一个数组中，方便下面循环。（数组很容易扩充）
+	//$SearchSQLArray=array(" where province='$condition1'"," where city like '%$condition2%'"," where xian='$condition3'"," where id='$condition4'"," where special like '%$Condition6%'");
+	$SearchSQLArray=array(" where olympic_year='$condition1'",
+	" where olympic_match_big like '%$condition2%'",
+	" where olympic_match_small like '%$condition3%'",
+	" where heldday like '%$condition4%'",
+	" where (finals like '%$condition5%' or goldpoint like '%$condition5%' or athlete like '%$condition5%')",
+	" where (gym like '%$condition6%' or athlete like '%$condition6%' or heldtime like '%$condition6%'
+	or athlete like '%$condition6%' or matchname like '%$condition6%')");
+
+	//预写好一些SQL语句，下面再根据情况处理。（数组很容易扩充）
+
+for($i=0;$i<$ConditionsNumber;$i++)
+{
+	if($ConditionsArray[$i]=="")
+	$SearchSQLArray[$i]="";
+	//第一步处理：如果条件值为空，相应的SQL语句为空。
+	$haveWhere=false; //设“存在where”检查标志的初值为false。
+	for($j=0;$j<$i;$j++)
+	//从开始到目前循环的i，处理有哪些where
+	//需要变为and。
+	{
+		$wherePosition=strpos($SearchSQLArray[$j],"where");
+		//检查i前面是否有where出现。
+		if(($wherePosition=="1")&&($haveWhere==false))
+		{
+			$SearchSQLArray[$i]=ereg_replace("where","and",$SearchSQLArray[$i]);
+			//where的位置为1，且前面已有where。
+			//则where换成and。
+			$haveWhere=true; //"存在where”检查标志设为true。
+		}
+	}
+};
+
+	for($i=0;$i<$ConditionsNumber;$i++)
+	$sql=$sql.$SearchSQLArray[$i];
+	//$sql="select * from myself_matches".$sql.";"; 
+	//$sql="select * from olympic_match_detail".$sql."";
+	$sql=" select * from olympic_match_detail".$sql." ORDER BY heldday ASC,heldtime ASC";
+	//组成SQL语句
+	//echo $sql;//打印查询语句
+	echo "<br>";
+	
+	
+	$result=mysql_query($sql);
+	echo mysql_error(); 
+	$num_results = mysql_num_rows($result);
+	echo "<a href='index.php'>点击此处回奥运赛事搜索页面</a>";
+	echo '<p>一共找到'.$num_results.'条记录</p>';
+	  
+	echo "<h4 align='CENTER'>2008奥运搜索结果</h4>";//画标题和表头
+	echo "<table width='100%' border='1' FRAME='box' cellspacing='0' cellpadding='0' align='CENTER' valign='middle'>"; 
+	echo "<tr>";
+	echo "<th width=2%>编号</th>";
+	echo "<th width=8%>比赛大项</th>";
+	echo "<th width=10%>比赛小项</th>";
+	echo "<th width=17%>举行日期</th>";
+	echo "<th width=13%>举行时间</th>";
+	echo "<th width=19%>赛事名</th>";
+	echo "<th width=14%>场馆</th>";
+	echo "<th width=3%>决赛</th>";
+	echo "<th width=3%>夺金点</th>";
+	echo "<th width=11%>运动员</th>";
+	echo "</tr>";
+
+
+for ($i=0; $i<$num_results;$i++)
+{
+	 $row = mysql_fetch_assoc($result) ;
+	 //$id = ($i+1);
+	 $id = htmlspecialchars(stripslashes($row['id']));
+	 $olympic_match_big = stripslashes($row['olympic_match_big']);
+	 $olympic_match_small = stripslashes($row['olympic_match_small']);
+	 $heldday = stripslashes($row['heldday']);
+	 $heldtime = stripslashes($row['heldtime']);
+	 $matchname = stripslashes($row['matchname']);
+	 $gym = stripslashes($row['gym']);
+	 $finals = stripslashes($row['finals']);
+	 $goldpoint = stripslashes($row['goldpoint']);
+	 $athlete = stripslashes($row['athlete']);
+     
+	  //画输出记录(带链接)
+	  echo "<tr>";
+	  echo "<td>$id</td>";
+	  echo "<td>$olympic_match_big</td>";
+	  echo "<td>$olympic_match_small</td>";
+	  //echo "<td><a href=''>$olympic_match_big</a></td>";
+	 // echo "<td><a href=''>$olympic_match_small</a></td>";
+	  echo "<td>$heldday</td>";
+	  echo "<td>$heldtime</td>";
+	  echo "<td>$matchname</td>";
+	  echo "<td>$gym</td>";
+	  echo "<td>$finals</td>";
+	  echo "<td>$goldpoint</td>";
+	  echo "<td>$athlete</td>";
+	  echo "</tr>";
+}
+echo "</table>";
+echo "<br>";
+echo "<p align=right><a href='index.php'>点击此处回奥运赛事搜索页面</a></p>";
+?>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+	<title>深圳160:足球比赛球队搜索 </title></head>
+<body>
+<h4 align="center">深圳160:足球赛事球队搜索 </h4>
+<form method="post"> 	
+<table align="center">
+<tr align="center">
+ <td >
+  <select align="center" name="searchtype"> 
+  <option value="all">球队</option>
+</select></td>
+<td >关键词:</td>
+<td> <input name="searchterm" type="text"></td>
+<td> <input name="sousuo" type="submit" value="搜索"></td></tr>
+<tr><td><input align="center" type="hidden" value="1" name="aaa"></td></tr>
+</table>
+</form>
+<?php
+ $searchtype=$_POST['searchtype'];//搜索方式
+ //print_r($_POST); 
+// echo $searchtype;
+ $searchterm=$_POST['searchterm'];//搜索关键词
+ $searchterm= trim($searchterm);//Strip whitespace (or other characters) from the beginning and end of a string
+ //连接数据库
+$host='172.20.1.21';
+$username='admin';
+$password='xxzx160168';
+$db_name='phpcms';
+$tb_name='myself_teams';
+$link=@mysql_connect($host,$username,$password);
+@mysql_query("SET NAMES GBK");//编码
+
+mysql_select_db($db_name, $link);
+
+//if($_POST["aaa"])
+//if (!empty($_REQUEST['aaa']))//如果有提交关键词
+//{
+	 //if($searchtype=='all')//选择不限关键词的搜索方式
+   
+	//分隔关键词:逗号,空格等    
+	if(strpos($searchterm,','))
+	   $keywords=explode(',',$searchterm);  
+	elseif (strpos($searchterm,'，'))
+  $keywords=explode('，',$searchterm);
+  elseif (strpos($searchterm,'　'))
+  $keywords=explode('　',$searchterm);
+	else
+	$keywords=explode(' ',$searchterm);
+	
+	 if (!empty($searchterm)) 
+{		
+ 
+{
+  for($i=0;$i<count($keywords);$i++)           
+   {
+    if($i==0)    //只有一个关键词的情况                           
+   //$query = "select * from football where datetime like '%".$keywords[$i]."%' or time like '%".$keywords[$i]."%' or name like '%".$keywords[$i]."%' or hometeam like '%".$keywords[$i]."%' or points like '%".$keywords[$i]."%' or guestteam like '%".$keywords[$i]."%' or halfpoints like '%".$keywords[$i]."%' or remarks like '%".$keywords[$i]."%'"; 
+   $query = "select * from myself_teams where tid like '%".$keywords[$i]."%' or teamname like '%".$keywords[$i]."%' or teamname_big like '%".$keywords[$i]."%' or ename like '%".$keywords[$i]."%' or tintro like '%".$keywords[$i]."%'"; 
+    else         //多个关键词的情况                             
+    $query = $query."UNION select * from myself_teams where tid like '%".$keywords[$i]."%' or teamname like '%".$keywords[$i]."%' or teamname_big like '%".$keywords[$i]."%' or ename like '%".$keywords[$i]."%' or tintro like '%".$keywords[$i]."%'"; 
+   }
+   $query.= "ORDER BY tid ASC";//排序
+ }
+ // } 
+  
+//分页
+	$result=mysql_query($query);
+	echo mysql_error(); 
+  $num_results = mysql_num_rows($result);
+  echo '<p>一共找到'.$num_results.'条记录</p>';
+  
+  echo "<h4 align='CENTER'>足球赛事球队搜索结果</h4>";
+	echo "<table width='75%' border='1' FRAME='box' cellspacing='0' cellpadding='0' align='CENTER' valign='middle'>"; 
+	echo "<tr>";
+	echo "<th width='5%'>编号</th>";
+  echo "<th width='30%'>普通话</th>";
+  echo "<th width='30%'>粤语音</th>";
+  echo "<th width='35%'>英文</th>";
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td colspan=4>&nbsp;</td>";
+	echo "</tr>";
+	for ($i=0; $i<$num_results;$i++)
+	//while( $row = mysql_fetch_array($rs) )
+
+  {
+     $row = mysql_fetch_assoc($result) ;
+     $id = ($i+1);
+     $tid = htmlspecialchars(stripslashes($row['tid']));
+     $teamname = stripslashes($row['teamname']);
+     $teamname_big = stripslashes($row['teamname_big']);
+     $ename = stripslashes($row['ename']);
+     $tintro = stripslashes($row['tintro']);
+     
+	   $url = stripslashes($row['url']);
+      			
+			echo "<tr>";
+			echo "<td>";
+			echo "</td>";
+			echo "<td align=center>球队赛果赛程：</td>";
+			echo "<td colspan=2 align=center>$url</td>";
+			echo "</tr>";
+			
+			echo "<tr>";
+			echo "<td align=center>$tid</td>";
+			echo "<td>$teamname</td>";
+			echo "<td>$teamname_big</td>";
+			echo "<td>$ename</td>";
+			echo "</tr>";
+			echo "<tr>";
+			echo "<th align=center>球<br>队<br>资<br>料</th>";
+			echo "<td colspan=3>$tintro</td>";
+			echo "</tr>";
+			echo "<tr>";
+		  echo "<td colspan=4>&nbsp;</td>";
+			echo "</tr>";
+			//echo "</table>";		
+	 //$i++;
+   }	
+
+ echo "</table>";  
+ echo "<br>";  
+}
+
+else 
+echo "未输入球队搜索关键词!!!";
+   ?>
+</body>
+</html> 
